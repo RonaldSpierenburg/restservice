@@ -3,7 +3,9 @@ package nl.luminis.javatraining;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -34,5 +36,12 @@ public class HelloWorldResource {
 		personList.add(new Person("Donald", "Duck"));
 		personList.add(new Person("Koning", "Willem-Alexander"));
 		return personList;
+	}
+	
+	@POST
+	@Path("/person/1")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void addPerson(Person person) {
+		System.out.println("Added a person " + person.getFirstName() + " " + person.getLastName());
 	}
 }

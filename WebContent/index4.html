@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form id="form" name="form">
+<table>
+	<tr>
+		<td>Firstname</td>
+		<td><input type="text" name="firstName" id="firstName"></td>
+	</tr>
+	<tr>
+		<td>Lastname</td>
+		<td><input type="text" name="lastName" id="lastName"></td>
+	</tr>
+</table>
+<input id="submit" onclick="formSubmit()" type="button" value="Submit">
+</form>
+
+<script>
+function formSubmit() {
+  var firstName = document.getElementById("firstName").value;
+  var lastName = document.getElementById("lastName").value;
+		
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var json = JSON.parse(this.responseText)
+      var text = ""
+      for (var i = 0; i < json.length; i++) {
+        text += "<p>" + json[i].firstName + " " + json[i].lastName + "</p>"
+      }
+      document.getElementById("demo").innerHTML = text
+    }
+  };
+  xhttp.open("POST", "/restService/rest/HelloWorld/person/1", true);
+  xhttp.setRequestHeader("Content-Type", "application/json");
+  xhttp.send(JSON.stringify({firstName:firstName, lastName:lastName}));
+}
+</script>
+
+
+</body>
+</html>
