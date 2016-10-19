@@ -3,6 +3,11 @@ package nl.luminis.javatraining;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,6 +20,9 @@ import nl.luminis.javatraining.pojo.Person;
 @Path("/HelloWorld")
 public class HelloWorldResource {
  
+	@PersistenceContext
+	private EntityManager em;
+	
 	@GET
 	@Path("/sayHello")
 	public String sayHello() {
@@ -41,7 +49,9 @@ public class HelloWorldResource {
 	@POST
 	@Path("/person/1")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Transactional
 	public void addPerson(Person person) {
-		System.out.println("Added a person " + person.getFirstName() + " " + person.getLastName());
+        em.persist(person);
+		System.out.println("Added a person with firstname " + person.getFirstName() + " and with lastname " + person.getLastName());
 	}
 }
