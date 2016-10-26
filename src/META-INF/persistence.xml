@@ -11,6 +11,8 @@
 				value="metadata" />
 			<property name="javax.persistence.schema-generation.drop-source"
 				value="metadata" />
+			<property name="javax.persistence.sql-load-script-source" value="META-INF/load_script.sql"/>	
+				
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
   		
