@@ -3,11 +3,7 @@ package nl.luminis.javatraining;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,12 +12,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import nl.luminis.javatraining.pojo.Person;
+import nl.luminis.javatraining.service.PersonService;
  
 @Path("/HelloWorld")
 public class HelloWorldResource {
  
-	@PersistenceContext
-	private EntityManager em;
+	@Inject
+	private PersonService personService;
 	
 	@GET
 	@Path("/sayHello")
@@ -49,9 +46,8 @@ public class HelloWorldResource {
 	@POST
 	@Path("/person/1")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Transactional
 	public void addPerson(Person person) {
-        em.persist(person);
+		personService.addPerson(person);
 		System.out.println("Added a person with firstname " + person.getFirstName() + " and with lastname " + person.getLastName());
 	}
 }
