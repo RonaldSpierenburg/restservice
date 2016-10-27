@@ -1,2 +1,2 @@
-insert into person (id, firstname, lastname) values(1, 'Jaap', 'Aap');
-insert into person (id, firstname, lastname) values(2, 'Roy', 'Donders');
+insert into person (id, firstname, lastname) values(100001, 'Jaap', 'Aap');
+insert into person (id, firstname, lastname) values(100002, 'Roy', 'Donders');
